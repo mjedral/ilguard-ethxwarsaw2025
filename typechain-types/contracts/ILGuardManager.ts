@@ -29,9 +29,9 @@ export declare namespace ILGuardManager {
     tokenId: BigNumberish;
     tickLower: BigNumberish;
     tickUpper: BigNumberish;
-    liquidity: BigNumberish;
     isProtected: boolean;
     isPaused: boolean;
+    liquidity: BigNumberish;
     createdAt: BigNumberish;
     lastRebalanceAt: BigNumberish;
   };
@@ -41,9 +41,9 @@ export declare namespace ILGuardManager {
     tokenId: bigint,
     tickLower: bigint,
     tickUpper: bigint,
-    liquidity: bigint,
     isProtected: boolean,
     isPaused: boolean,
+    liquidity: bigint,
     createdAt: bigint,
     lastRebalanceAt: bigint
   ] & {
@@ -51,9 +51,9 @@ export declare namespace ILGuardManager {
     tokenId: bigint;
     tickLower: bigint;
     tickUpper: bigint;
-    liquidity: bigint;
     isProtected: boolean;
     isPaused: boolean;
+    liquidity: bigint;
     createdAt: bigint;
     lastRebalanceAt: bigint;
   };
@@ -62,51 +62,72 @@ export declare namespace ILGuardManager {
 export interface ILGuardManagerInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | "botAddress"
+      | "BOT_ROLE"
+      | "DEFAULT_ADMIN_ROLE"
+      | "GUARDIAN_ROLE"
       | "canRebalance"
       | "cooldownPeriod"
-      | "dailyActionCounts"
       | "deposit"
+      | "dragonSwapPositionManager"
+      | "dragonSwapRouter"
       | "emergencyPause"
-      | "emergencyPausePosition"
+      | "emergencyWithdraw"
+      | "getDailyActionCount"
       | "getPosition"
+      | "getRoleAdmin"
       | "getUserPositions"
+      | "grantRole"
+      | "hasRole"
       | "maxActionsPerDay"
-      | "owner"
+      | "minDepositAmount"
+      | "pausePosition"
       | "paused"
       | "positions"
       | "rebalance"
-      | "renounceOwnership"
-      | "setBotAddress"
+      | "renounceRole"
+      | "revokeRole"
       | "setCooldownPeriod"
       | "setMaxActionsPerDay"
+      | "setMinDepositAmount"
       | "setSlippageTolerance"
       | "slippageTolerance"
+      | "supportsInterface"
+      | "tickSpacing"
       | "toggleProtection"
-      | "transferOwnership"
+      | "token0"
+      | "token1"
       | "unpause"
       | "unpausePosition"
-      | "userPositions"
       | "withdraw"
   ): FunctionFragment;
 
   getEvent(
     nameOrSignatureOrTopic:
-      | "BotAddressUpdated"
+      | "CooldownPeriodUpdated"
       | "Deposited"
-      | "OwnershipTransferred"
+      | "EmergencyWithdraw"
+      | "MaxActionsPerDayUpdated"
+      | "MinDepositAmountUpdated"
       | "Paused"
       | "PositionPaused"
       | "PositionUnpaused"
       | "ProtectionToggled"
       | "Rebalanced"
+      | "RoleAdminChanged"
+      | "RoleGranted"
+      | "RoleRevoked"
       | "SlippageToleranceUpdated"
       | "Unpaused"
       | "Withdrawn"
   ): EventFragment;
 
+  encodeFunctionData(functionFragment: "BOT_ROLE", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "botAddress",
+    functionFragment: "DEFAULT_ADMIN_ROLE",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "GUARDIAN_ROLE",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -118,19 +139,34 @@ export interface ILGuardManagerInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "dailyActionCounts",
-    values: [BigNumberish, BigNumberish]
+    functionFragment: "deposit",
+    values: [
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish
+    ]
   ): string;
   encodeFunctionData(
-    functionFragment: "deposit",
-    values: [BigNumberish, BigNumberish, BigNumberish, BigNumberish]
+    functionFragment: "dragonSwapPositionManager",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "dragonSwapRouter",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "emergencyPause",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "emergencyPausePosition",
+    functionFragment: "emergencyWithdraw",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getDailyActionCount",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -138,14 +174,33 @@ export interface ILGuardManagerInterface extends Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "getRoleAdmin",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getUserPositions",
     values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "grantRole",
+    values: [BytesLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "hasRole",
+    values: [BytesLike, AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "maxActionsPerDay",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "minDepositAmount",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "pausePosition",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "paused", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "positions",
@@ -153,15 +208,22 @@ export interface ILGuardManagerInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "rebalance",
-    values: [BigNumberish, BigNumberish, BigNumberish, string]
+    values: [
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish
+    ]
   ): string;
   encodeFunctionData(
-    functionFragment: "renounceOwnership",
-    values?: undefined
+    functionFragment: "renounceRole",
+    values: [BytesLike, AddressLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "setBotAddress",
-    values: [AddressLike]
+    functionFragment: "revokeRole",
+    values: [BytesLike, AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "setCooldownPeriod",
@@ -169,6 +231,10 @@ export interface ILGuardManagerInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "setMaxActionsPerDay",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setMinDepositAmount",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -180,28 +246,38 @@ export interface ILGuardManagerInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "supportsInterface",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "tickSpacing",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "toggleProtection",
     values: [BigNumberish, boolean]
   ): string;
-  encodeFunctionData(
-    functionFragment: "transferOwnership",
-    values: [AddressLike]
-  ): string;
+  encodeFunctionData(functionFragment: "token0", values?: undefined): string;
+  encodeFunctionData(functionFragment: "token1", values?: undefined): string;
   encodeFunctionData(functionFragment: "unpause", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "unpausePosition",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "userPositions",
-    values: [AddressLike, BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "withdraw",
-    values: [BigNumberish]
+    values: [BigNumberish, BigNumberish, BigNumberish]
   ): string;
 
-  decodeFunctionResult(functionFragment: "botAddress", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "BOT_ROLE", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "DEFAULT_ADMIN_ROLE",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "GUARDIAN_ROLE",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "canRebalance",
     data: BytesLike
@@ -210,17 +286,25 @@ export interface ILGuardManagerInterface extends Interface {
     functionFragment: "cooldownPeriod",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "dailyActionCounts",
+    functionFragment: "dragonSwapPositionManager",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "dragonSwapRouter",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "emergencyPause",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "emergencyPausePosition",
+    functionFragment: "emergencyWithdraw",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getDailyActionCount",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -228,31 +312,45 @@ export interface ILGuardManagerInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "getRoleAdmin",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getUserPositions",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "maxActionsPerDay",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "minDepositAmount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "pausePosition",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "paused", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "positions", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "rebalance", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "renounceOwnership",
+    functionFragment: "renounceRole",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "setBotAddress",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setCooldownPeriod",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setMaxActionsPerDay",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setMinDepositAmount",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -264,31 +362,33 @@ export interface ILGuardManagerInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "toggleProtection",
+    functionFragment: "supportsInterface",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "transferOwnership",
+    functionFragment: "tickSpacing",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "toggleProtection",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "token0", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "token1", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "unpause", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "unpausePosition",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "userPositions",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 }
 
-export namespace BotAddressUpdatedEvent {
-  export type InputTuple = [oldBot: AddressLike, newBot: AddressLike];
-  export type OutputTuple = [oldBot: string, newBot: string];
+export namespace CooldownPeriodUpdatedEvent {
+  export type InputTuple = [oldPeriod: BigNumberish, newPeriod: BigNumberish];
+  export type OutputTuple = [oldPeriod: bigint, newPeriod: bigint];
   export interface OutputObject {
-    oldBot: string;
-    newBot: string;
+    oldPeriod: bigint;
+    newPeriod: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -330,12 +430,50 @@ export namespace DepositedEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace OwnershipTransferredEvent {
-  export type InputTuple = [previousOwner: AddressLike, newOwner: AddressLike];
-  export type OutputTuple = [previousOwner: string, newOwner: string];
+export namespace EmergencyWithdrawEvent {
+  export type InputTuple = [
+    positionId: BigNumberish,
+    user: AddressLike,
+    amount0: BigNumberish,
+    amount1: BigNumberish
+  ];
+  export type OutputTuple = [
+    positionId: bigint,
+    user: string,
+    amount0: bigint,
+    amount1: bigint
+  ];
   export interface OutputObject {
-    previousOwner: string;
-    newOwner: string;
+    positionId: bigint;
+    user: string;
+    amount0: bigint;
+    amount1: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace MaxActionsPerDayUpdatedEvent {
+  export type InputTuple = [oldMax: BigNumberish, newMax: BigNumberish];
+  export type OutputTuple = [oldMax: bigint, newMax: bigint];
+  export interface OutputObject {
+    oldMax: bigint;
+    newMax: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace MinDepositAmountUpdatedEvent {
+  export type InputTuple = [oldAmount: BigNumberish, newAmount: BigNumberish];
+  export type OutputTuple = [oldAmount: bigint, newAmount: bigint];
+  export interface OutputObject {
+    oldAmount: bigint;
+    newAmount: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -411,7 +549,7 @@ export namespace RebalancedEvent {
     oldTickUpper: BigNumberish,
     newTickLower: BigNumberish,
     newTickUpper: BigNumberish,
-    reason: string,
+    reason: BigNumberish,
     feesCollected: BigNumberish
   ];
   export type OutputTuple = [
@@ -421,7 +559,7 @@ export namespace RebalancedEvent {
     oldTickUpper: bigint,
     newTickLower: bigint,
     newTickUpper: bigint,
-    reason: string,
+    reason: bigint,
     feesCollected: bigint
   ];
   export interface OutputObject {
@@ -431,8 +569,66 @@ export namespace RebalancedEvent {
     oldTickUpper: bigint;
     newTickLower: bigint;
     newTickUpper: bigint;
-    reason: string;
+    reason: bigint;
     feesCollected: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace RoleAdminChangedEvent {
+  export type InputTuple = [
+    role: BytesLike,
+    previousAdminRole: BytesLike,
+    newAdminRole: BytesLike
+  ];
+  export type OutputTuple = [
+    role: string,
+    previousAdminRole: string,
+    newAdminRole: string
+  ];
+  export interface OutputObject {
+    role: string;
+    previousAdminRole: string;
+    newAdminRole: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace RoleGrantedEvent {
+  export type InputTuple = [
+    role: BytesLike,
+    account: AddressLike,
+    sender: AddressLike
+  ];
+  export type OutputTuple = [role: string, account: string, sender: string];
+  export interface OutputObject {
+    role: string;
+    account: string;
+    sender: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace RoleRevokedEvent {
+  export type InputTuple = [
+    role: BytesLike,
+    account: AddressLike,
+    sender: AddressLike
+  ];
+  export type OutputTuple = [role: string, account: string, sender: string];
+  export interface OutputObject {
+    role: string;
+    account: string;
+    sender: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -539,7 +735,11 @@ export interface ILGuardManager extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  botAddress: TypedContractMethod<[], [string], "view">;
+  BOT_ROLE: TypedContractMethod<[], [string], "view">;
+
+  DEFAULT_ADMIN_ROLE: TypedContractMethod<[], [string], "view">;
+
+  GUARDIAN_ROLE: TypedContractMethod<[], [string], "view">;
 
   canRebalance: TypedContractMethod<
     [positionId: BigNumberish],
@@ -549,29 +749,35 @@ export interface ILGuardManager extends BaseContract {
 
   cooldownPeriod: TypedContractMethod<[], [bigint], "view">;
 
-  dailyActionCounts: TypedContractMethod<
-    [arg0: BigNumberish, arg1: BigNumberish],
-    [bigint],
-    "view"
-  >;
-
   deposit: TypedContractMethod<
     [
       amount0: BigNumberish,
       amount1: BigNumberish,
       tickLower: BigNumberish,
-      tickUpper: BigNumberish
+      tickUpper: BigNumberish,
+      amount0Min: BigNumberish,
+      amount1Min: BigNumberish
     ],
     [bigint],
     "nonpayable"
   >;
 
+  dragonSwapPositionManager: TypedContractMethod<[], [string], "view">;
+
+  dragonSwapRouter: TypedContractMethod<[], [string], "view">;
+
   emergencyPause: TypedContractMethod<[], [void], "nonpayable">;
 
-  emergencyPausePosition: TypedContractMethod<
+  emergencyWithdraw: TypedContractMethod<
     [positionId: BigNumberish],
     [void],
     "nonpayable"
+  >;
+
+  getDailyActionCount: TypedContractMethod<
+    [positionId: BigNumberish],
+    [bigint],
+    "view"
   >;
 
   getPosition: TypedContractMethod<
@@ -580,15 +786,35 @@ export interface ILGuardManager extends BaseContract {
     "view"
   >;
 
+  getRoleAdmin: TypedContractMethod<[role: BytesLike], [string], "view">;
+
   getUserPositions: TypedContractMethod<
     [user: AddressLike],
     [bigint[]],
     "view"
   >;
 
+  grantRole: TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  hasRole: TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [boolean],
+    "view"
+  >;
+
   maxActionsPerDay: TypedContractMethod<[], [bigint], "view">;
 
-  owner: TypedContractMethod<[], [string], "view">;
+  minDepositAmount: TypedContractMethod<[], [bigint], "view">;
+
+  pausePosition: TypedContractMethod<
+    [positionId: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
 
   paused: TypedContractMethod<[], [boolean], "view">;
 
@@ -600,9 +826,9 @@ export interface ILGuardManager extends BaseContract {
         bigint,
         bigint,
         bigint,
+        boolean,
+        boolean,
         bigint,
-        boolean,
-        boolean,
         bigint,
         bigint
       ] & {
@@ -610,9 +836,9 @@ export interface ILGuardManager extends BaseContract {
         tokenId: bigint;
         tickLower: bigint;
         tickUpper: bigint;
-        liquidity: bigint;
         isProtected: boolean;
         isPaused: boolean;
+        liquidity: bigint;
         createdAt: bigint;
         lastRebalanceAt: bigint;
       }
@@ -625,16 +851,22 @@ export interface ILGuardManager extends BaseContract {
       positionId: BigNumberish,
       newTickLower: BigNumberish,
       newTickUpper: BigNumberish,
-      reason: string
+      reason: BigNumberish,
+      amount0Min: BigNumberish,
+      amount1Min: BigNumberish
     ],
     [void],
     "nonpayable"
   >;
 
-  renounceOwnership: TypedContractMethod<[], [void], "nonpayable">;
+  renounceRole: TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
 
-  setBotAddress: TypedContractMethod<
-    [newBotAddress: AddressLike],
+  revokeRole: TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
     [void],
     "nonpayable"
   >;
@@ -651,6 +883,12 @@ export interface ILGuardManager extends BaseContract {
     "nonpayable"
   >;
 
+  setMinDepositAmount: TypedContractMethod<
+    [newMinAmount: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
   setSlippageTolerance: TypedContractMethod<
     [newTolerance: BigNumberish],
     [void],
@@ -659,17 +897,23 @@ export interface ILGuardManager extends BaseContract {
 
   slippageTolerance: TypedContractMethod<[], [bigint], "view">;
 
+  supportsInterface: TypedContractMethod<
+    [interfaceId: BytesLike],
+    [boolean],
+    "view"
+  >;
+
+  tickSpacing: TypedContractMethod<[], [bigint], "view">;
+
   toggleProtection: TypedContractMethod<
     [positionId: BigNumberish, isProtected: boolean],
     [void],
     "nonpayable"
   >;
 
-  transferOwnership: TypedContractMethod<
-    [newOwner: AddressLike],
-    [void],
-    "nonpayable"
-  >;
+  token0: TypedContractMethod<[], [string], "view">;
+
+  token1: TypedContractMethod<[], [string], "view">;
 
   unpause: TypedContractMethod<[], [void], "nonpayable">;
 
@@ -679,14 +923,12 @@ export interface ILGuardManager extends BaseContract {
     "nonpayable"
   >;
 
-  userPositions: TypedContractMethod<
-    [arg0: AddressLike, arg1: BigNumberish],
-    [bigint],
-    "view"
-  >;
-
   withdraw: TypedContractMethod<
-    [positionId: BigNumberish],
+    [
+      positionId: BigNumberish,
+      amount0Min: BigNumberish,
+      amount1Min: BigNumberish
+    ],
     [void],
     "nonpayable"
   >;
@@ -696,7 +938,13 @@ export interface ILGuardManager extends BaseContract {
   ): T;
 
   getFunction(
-    nameOrSignature: "botAddress"
+    nameOrSignature: "BOT_ROLE"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "DEFAULT_ADMIN_ROLE"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "GUARDIAN_ROLE"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "canRebalance"
@@ -705,30 +953,34 @@ export interface ILGuardManager extends BaseContract {
     nameOrSignature: "cooldownPeriod"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "dailyActionCounts"
-  ): TypedContractMethod<
-    [arg0: BigNumberish, arg1: BigNumberish],
-    [bigint],
-    "view"
-  >;
-  getFunction(
     nameOrSignature: "deposit"
   ): TypedContractMethod<
     [
       amount0: BigNumberish,
       amount1: BigNumberish,
       tickLower: BigNumberish,
-      tickUpper: BigNumberish
+      tickUpper: BigNumberish,
+      amount0Min: BigNumberish,
+      amount1Min: BigNumberish
     ],
     [bigint],
     "nonpayable"
   >;
   getFunction(
+    nameOrSignature: "dragonSwapPositionManager"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "dragonSwapRouter"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
     nameOrSignature: "emergencyPause"
   ): TypedContractMethod<[], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: "emergencyPausePosition"
+    nameOrSignature: "emergencyWithdraw"
   ): TypedContractMethod<[positionId: BigNumberish], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "getDailyActionCount"
+  ): TypedContractMethod<[positionId: BigNumberish], [bigint], "view">;
   getFunction(
     nameOrSignature: "getPosition"
   ): TypedContractMethod<
@@ -737,14 +989,34 @@ export interface ILGuardManager extends BaseContract {
     "view"
   >;
   getFunction(
+    nameOrSignature: "getRoleAdmin"
+  ): TypedContractMethod<[role: BytesLike], [string], "view">;
+  getFunction(
     nameOrSignature: "getUserPositions"
   ): TypedContractMethod<[user: AddressLike], [bigint[]], "view">;
+  getFunction(
+    nameOrSignature: "grantRole"
+  ): TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "hasRole"
+  ): TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [boolean],
+    "view"
+  >;
   getFunction(
     nameOrSignature: "maxActionsPerDay"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "owner"
-  ): TypedContractMethod<[], [string], "view">;
+    nameOrSignature: "minDepositAmount"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "pausePosition"
+  ): TypedContractMethod<[positionId: BigNumberish], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "paused"
   ): TypedContractMethod<[], [boolean], "view">;
@@ -758,9 +1030,9 @@ export interface ILGuardManager extends BaseContract {
         bigint,
         bigint,
         bigint,
+        boolean,
+        boolean,
         bigint,
-        boolean,
-        boolean,
         bigint,
         bigint
       ] & {
@@ -768,9 +1040,9 @@ export interface ILGuardManager extends BaseContract {
         tokenId: bigint;
         tickLower: bigint;
         tickUpper: bigint;
-        liquidity: bigint;
         isProtected: boolean;
         isPaused: boolean;
+        liquidity: bigint;
         createdAt: bigint;
         lastRebalanceAt: bigint;
       }
@@ -784,17 +1056,27 @@ export interface ILGuardManager extends BaseContract {
       positionId: BigNumberish,
       newTickLower: BigNumberish,
       newTickUpper: BigNumberish,
-      reason: string
+      reason: BigNumberish,
+      amount0Min: BigNumberish,
+      amount1Min: BigNumberish
     ],
     [void],
     "nonpayable"
   >;
   getFunction(
-    nameOrSignature: "renounceOwnership"
-  ): TypedContractMethod<[], [void], "nonpayable">;
+    nameOrSignature: "renounceRole"
+  ): TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
   getFunction(
-    nameOrSignature: "setBotAddress"
-  ): TypedContractMethod<[newBotAddress: AddressLike], [void], "nonpayable">;
+    nameOrSignature: "revokeRole"
+  ): TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
   getFunction(
     nameOrSignature: "setCooldownPeriod"
   ): TypedContractMethod<
@@ -806,10 +1088,19 @@ export interface ILGuardManager extends BaseContract {
     nameOrSignature: "setMaxActionsPerDay"
   ): TypedContractMethod<[newMaxActions: BigNumberish], [void], "nonpayable">;
   getFunction(
+    nameOrSignature: "setMinDepositAmount"
+  ): TypedContractMethod<[newMinAmount: BigNumberish], [void], "nonpayable">;
+  getFunction(
     nameOrSignature: "setSlippageTolerance"
   ): TypedContractMethod<[newTolerance: BigNumberish], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "slippageTolerance"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "supportsInterface"
+  ): TypedContractMethod<[interfaceId: BytesLike], [boolean], "view">;
+  getFunction(
+    nameOrSignature: "tickSpacing"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "toggleProtection"
@@ -819,8 +1110,11 @@ export interface ILGuardManager extends BaseContract {
     "nonpayable"
   >;
   getFunction(
-    nameOrSignature: "transferOwnership"
-  ): TypedContractMethod<[newOwner: AddressLike], [void], "nonpayable">;
+    nameOrSignature: "token0"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "token1"
+  ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "unpause"
   ): TypedContractMethod<[], [void], "nonpayable">;
@@ -828,22 +1122,23 @@ export interface ILGuardManager extends BaseContract {
     nameOrSignature: "unpausePosition"
   ): TypedContractMethod<[positionId: BigNumberish], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: "userPositions"
-  ): TypedContractMethod<
-    [arg0: AddressLike, arg1: BigNumberish],
-    [bigint],
-    "view"
-  >;
-  getFunction(
     nameOrSignature: "withdraw"
-  ): TypedContractMethod<[positionId: BigNumberish], [void], "nonpayable">;
+  ): TypedContractMethod<
+    [
+      positionId: BigNumberish,
+      amount0Min: BigNumberish,
+      amount1Min: BigNumberish
+    ],
+    [void],
+    "nonpayable"
+  >;
 
   getEvent(
-    key: "BotAddressUpdated"
+    key: "CooldownPeriodUpdated"
   ): TypedContractEvent<
-    BotAddressUpdatedEvent.InputTuple,
-    BotAddressUpdatedEvent.OutputTuple,
-    BotAddressUpdatedEvent.OutputObject
+    CooldownPeriodUpdatedEvent.InputTuple,
+    CooldownPeriodUpdatedEvent.OutputTuple,
+    CooldownPeriodUpdatedEvent.OutputObject
   >;
   getEvent(
     key: "Deposited"
@@ -853,11 +1148,25 @@ export interface ILGuardManager extends BaseContract {
     DepositedEvent.OutputObject
   >;
   getEvent(
-    key: "OwnershipTransferred"
+    key: "EmergencyWithdraw"
   ): TypedContractEvent<
-    OwnershipTransferredEvent.InputTuple,
-    OwnershipTransferredEvent.OutputTuple,
-    OwnershipTransferredEvent.OutputObject
+    EmergencyWithdrawEvent.InputTuple,
+    EmergencyWithdrawEvent.OutputTuple,
+    EmergencyWithdrawEvent.OutputObject
+  >;
+  getEvent(
+    key: "MaxActionsPerDayUpdated"
+  ): TypedContractEvent<
+    MaxActionsPerDayUpdatedEvent.InputTuple,
+    MaxActionsPerDayUpdatedEvent.OutputTuple,
+    MaxActionsPerDayUpdatedEvent.OutputObject
+  >;
+  getEvent(
+    key: "MinDepositAmountUpdated"
+  ): TypedContractEvent<
+    MinDepositAmountUpdatedEvent.InputTuple,
+    MinDepositAmountUpdatedEvent.OutputTuple,
+    MinDepositAmountUpdatedEvent.OutputObject
   >;
   getEvent(
     key: "Paused"
@@ -895,6 +1204,27 @@ export interface ILGuardManager extends BaseContract {
     RebalancedEvent.OutputObject
   >;
   getEvent(
+    key: "RoleAdminChanged"
+  ): TypedContractEvent<
+    RoleAdminChangedEvent.InputTuple,
+    RoleAdminChangedEvent.OutputTuple,
+    RoleAdminChangedEvent.OutputObject
+  >;
+  getEvent(
+    key: "RoleGranted"
+  ): TypedContractEvent<
+    RoleGrantedEvent.InputTuple,
+    RoleGrantedEvent.OutputTuple,
+    RoleGrantedEvent.OutputObject
+  >;
+  getEvent(
+    key: "RoleRevoked"
+  ): TypedContractEvent<
+    RoleRevokedEvent.InputTuple,
+    RoleRevokedEvent.OutputTuple,
+    RoleRevokedEvent.OutputObject
+  >;
+  getEvent(
     key: "SlippageToleranceUpdated"
   ): TypedContractEvent<
     SlippageToleranceUpdatedEvent.InputTuple,
@@ -917,15 +1247,15 @@ export interface ILGuardManager extends BaseContract {
   >;
 
   filters: {
-    "BotAddressUpdated(address,address)": TypedContractEvent<
-      BotAddressUpdatedEvent.InputTuple,
-      BotAddressUpdatedEvent.OutputTuple,
-      BotAddressUpdatedEvent.OutputObject
+    "CooldownPeriodUpdated(uint256,uint256)": TypedContractEvent<
+      CooldownPeriodUpdatedEvent.InputTuple,
+      CooldownPeriodUpdatedEvent.OutputTuple,
+      CooldownPeriodUpdatedEvent.OutputObject
     >;
-    BotAddressUpdated: TypedContractEvent<
-      BotAddressUpdatedEvent.InputTuple,
-      BotAddressUpdatedEvent.OutputTuple,
-      BotAddressUpdatedEvent.OutputObject
+    CooldownPeriodUpdated: TypedContractEvent<
+      CooldownPeriodUpdatedEvent.InputTuple,
+      CooldownPeriodUpdatedEvent.OutputTuple,
+      CooldownPeriodUpdatedEvent.OutputObject
     >;
 
     "Deposited(uint256,address,uint256,uint256,int24,int24,uint128)": TypedContractEvent<
@@ -939,15 +1269,37 @@ export interface ILGuardManager extends BaseContract {
       DepositedEvent.OutputObject
     >;
 
-    "OwnershipTransferred(address,address)": TypedContractEvent<
-      OwnershipTransferredEvent.InputTuple,
-      OwnershipTransferredEvent.OutputTuple,
-      OwnershipTransferredEvent.OutputObject
+    "EmergencyWithdraw(uint256,address,uint256,uint256)": TypedContractEvent<
+      EmergencyWithdrawEvent.InputTuple,
+      EmergencyWithdrawEvent.OutputTuple,
+      EmergencyWithdrawEvent.OutputObject
     >;
-    OwnershipTransferred: TypedContractEvent<
-      OwnershipTransferredEvent.InputTuple,
-      OwnershipTransferredEvent.OutputTuple,
-      OwnershipTransferredEvent.OutputObject
+    EmergencyWithdraw: TypedContractEvent<
+      EmergencyWithdrawEvent.InputTuple,
+      EmergencyWithdrawEvent.OutputTuple,
+      EmergencyWithdrawEvent.OutputObject
+    >;
+
+    "MaxActionsPerDayUpdated(uint256,uint256)": TypedContractEvent<
+      MaxActionsPerDayUpdatedEvent.InputTuple,
+      MaxActionsPerDayUpdatedEvent.OutputTuple,
+      MaxActionsPerDayUpdatedEvent.OutputObject
+    >;
+    MaxActionsPerDayUpdated: TypedContractEvent<
+      MaxActionsPerDayUpdatedEvent.InputTuple,
+      MaxActionsPerDayUpdatedEvent.OutputTuple,
+      MaxActionsPerDayUpdatedEvent.OutputObject
+    >;
+
+    "MinDepositAmountUpdated(uint256,uint256)": TypedContractEvent<
+      MinDepositAmountUpdatedEvent.InputTuple,
+      MinDepositAmountUpdatedEvent.OutputTuple,
+      MinDepositAmountUpdatedEvent.OutputObject
+    >;
+    MinDepositAmountUpdated: TypedContractEvent<
+      MinDepositAmountUpdatedEvent.InputTuple,
+      MinDepositAmountUpdatedEvent.OutputTuple,
+      MinDepositAmountUpdatedEvent.OutputObject
     >;
 
     "Paused(address)": TypedContractEvent<
@@ -994,7 +1346,7 @@ export interface ILGuardManager extends BaseContract {
       ProtectionToggledEvent.OutputObject
     >;
 
-    "Rebalanced(uint256,address,int24,int24,int24,int24,string,uint256)": TypedContractEvent<
+    "Rebalanced(uint256,address,int24,int24,int24,int24,uint8,uint256)": TypedContractEvent<
       RebalancedEvent.InputTuple,
       RebalancedEvent.OutputTuple,
       RebalancedEvent.OutputObject
@@ -1003,6 +1355,39 @@ export interface ILGuardManager extends BaseContract {
       RebalancedEvent.InputTuple,
       RebalancedEvent.OutputTuple,
       RebalancedEvent.OutputObject
+    >;
+
+    "RoleAdminChanged(bytes32,bytes32,bytes32)": TypedContractEvent<
+      RoleAdminChangedEvent.InputTuple,
+      RoleAdminChangedEvent.OutputTuple,
+      RoleAdminChangedEvent.OutputObject
+    >;
+    RoleAdminChanged: TypedContractEvent<
+      RoleAdminChangedEvent.InputTuple,
+      RoleAdminChangedEvent.OutputTuple,
+      RoleAdminChangedEvent.OutputObject
+    >;
+
+    "RoleGranted(bytes32,address,address)": TypedContractEvent<
+      RoleGrantedEvent.InputTuple,
+      RoleGrantedEvent.OutputTuple,
+      RoleGrantedEvent.OutputObject
+    >;
+    RoleGranted: TypedContractEvent<
+      RoleGrantedEvent.InputTuple,
+      RoleGrantedEvent.OutputTuple,
+      RoleGrantedEvent.OutputObject
+    >;
+
+    "RoleRevoked(bytes32,address,address)": TypedContractEvent<
+      RoleRevokedEvent.InputTuple,
+      RoleRevokedEvent.OutputTuple,
+      RoleRevokedEvent.OutputObject
+    >;
+    RoleRevoked: TypedContractEvent<
+      RoleRevokedEvent.InputTuple,
+      RoleRevokedEvent.OutputTuple,
+      RoleRevokedEvent.OutputObject
     >;
 
     "SlippageToleranceUpdated(uint256,uint256)": TypedContractEvent<

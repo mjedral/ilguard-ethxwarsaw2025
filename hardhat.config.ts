@@ -33,6 +33,16 @@ const config: HardhatUserConfig = {
             url: "http://127.0.0.1:8545",
             chainId: 31337,
         },
+        sei: {
+            url: process.env.SEI_RPC_URL || "https://evm-rpc.sei-apis.com",
+            accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+            chainId: 1329,
+        },
+        "sei-testnet": {
+            url: process.env.SEI_TESTNET_RPC_URL || "https://evm-rpc-testnet.sei-apis.com",
+            accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+            chainId: 1328,
+        },
     },
     gasReporter: {
         enabled: process.env.REPORT_GAS !== undefined,

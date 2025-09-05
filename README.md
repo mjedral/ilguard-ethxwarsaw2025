@@ -1,101 +1,104 @@
 # IL Guard Mini
 
-IL Guard Mini is a "Protect my LP" one-tap tool designed to reduce impermanent loss (IL) for liquidity providers on DragonSwap. The system provides automated rebalancing for UniV3 positions based on price movements and volatility triggers.
+IL Guard Mini is a simple "Protect my LP" tool that helps reduce impermanent loss for liquidity providers on DragonSwap. The system automatically rebalances your UniV3 positions when prices move or volatility increases, so you don't have to constantly monitor and adjust your positions manually.
 
-## Features
+## What it does
 
-- 🛡️ **One-tap Protection**: Simple toggle to enable/disable IL protection
-- 📊 **Real-time Dashboard**: Monitor fees earned, estimated IL, and recent actions
-- 🤖 **Automated Rebalancing**: Smart rebalancing based on price bands and volatility
-- ⚡ **Base Network**: Optimized for Base network with low gas costs
-- 🔒 **Emergency Controls**: Pause functionality for immediate manual control
+- **One-tap Protection**: Just flip a switch to turn protection on or off for your liquidity positions
+- **Real-time Dashboard**: See how much you're earning in fees, track estimated impermanent loss, and review recent actions
+- **Automated Rebalancing**: The system watches price movements and adjusts your position ranges automatically when needed
+- **Base Network Optimized**: Built specifically for Base network to keep gas costs low
+- **Emergency Controls**: You can pause everything instantly if you need to take manual control
 
-## Quick Start
+## Getting Started
 
-### Prerequisites
+### What you'll need
 
-- Node.js 18+ and npm
+- Node.js version 18 or higher
+- npm package manager
 - Git
 
-### Installation
+### Setting up the project
 
-1. Clone the repository:
+1. Get the code:
 
 ```bash
 git clone <repository-url>
 cd il-guard-mini
 ```
 
-2. Install dependencies:
+2. Install everything:
 
 ```bash
 npm install
 ```
 
-3. Copy environment variables:
+3. Set up your environment:
 
 ```bash
 cp .env.example .env
 ```
 
-4. Configure your `.env` file with appropriate values
+Then edit the `.env` file with your specific configuration values.
 
-### Development
+### Development commands
 
 ```bash
-# Compile TypeScript
+# Build the TypeScript code
 npm run build
 
-# Run tests
+# Run all tests
 npm test
 
-# Compile smart contracts
+# Compile the smart contracts
 npm run compile
 
-# Run contract tests
+# Test the smart contracts
 npm run test:contracts
 
-# Start local Hardhat network
+# Start a local blockchain for testing
 npm run node
 
-# Lint code
+# Check code quality
 npm run lint
 
-# Format code
+# Auto-format your code
 npm run format
 ```
 
-## Project Structure
+## How the code is organized
 
 ```
 il-guard-mini/
-├── contracts/          # Solidity smart contracts
-├── src/               # Core TypeScript source code
-├── frontend/          # Base Mini App frontend
-├── bot/              # Automation bot
-├── database/         # Database schemas and migrations
-├── test/             # Test files
-├── scripts/          # Deployment and utility scripts
-└── artifacts/        # Compiled contract artifacts
+├── contracts/          # Smart contracts (the blockchain code)
+├── src/               # Main application code
+├── frontend/          # Web interface for users
+├── bot/              # Automated rebalancing system
+├── database/         # Data storage setup
+├── test/             # All the tests
+├── scripts/          # Deployment and helper scripts
+└── artifacts/        # Compiled contract files
 ```
 
-## Architecture
+## System overview
 
-The system consists of four main components:
+The project has four main parts that work together:
 
-1. **Base Mini App**: React frontend for user interactions
-2. **Smart Contracts**: Solidity contracts for position management
-3. **Automation Bot**: TypeScript bot for monitoring and rebalancing
-4. **Database**: GolemDB for persistent state management
+1. **Web Interface**: A React app where users can manage their positions
+2. **Smart Contracts**: Blockchain contracts that handle the actual position management
+3. **Automation Bot**: A background service that monitors prices and triggers rebalancing
+4. **Database**: Stores user preferences and historical data
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests and linting
-5. Submit a pull request
+Want to help improve IL Guard Mini? Here's how:
+
+1. Fork this repository to your GitHub account
+2. Create a new branch for your feature or fix
+3. Make your changes and test them thoroughly
+4. Run the linting and formatting tools
+5. Submit a pull request with a clear description of what you've changed
 
 ## License
 
-MIT License - see LICENSE file for details
+This project is open source under the MIT License. See the LICENSE file for the full details.
